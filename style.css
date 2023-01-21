@@ -1,10 +1,10 @@
 .stop-watch {
 
-  padding: 20px;
-  background: black;
+  padding: 20px 0;
+  background: #111;
   margin: 0 auto;
   width: 400px;
-  border-radius: 50px;
+  border-radius: 30px;
 }
 
 .row {
@@ -17,75 +17,73 @@
 }
 
 .watch span {
-  color: white;
+  color: #eee;
   font-size: 20px;
   font-weight: bold;
   font-family: consolas, sans-serif;
 }
 
-.buttons button {
-  width: 100px;
-  padding: 10px 0;
-  text-shadow: 1px 1px 1px #000, 2px 2px 1px #000;
-  text-transform: uppercase;
-  font-size: 10px;
+.btn {
+  width: 110px;
+  font-size: 11px;
   font-weight: 900;
+  text-transform: uppercase;
   background-color: #0000;
   border-radius: 10px;
-  margin: 0 2px;
-  display: none;
+  padding: 10px 0;
+  margin: 0 5px;
+  box-shadow: 0px 0px 2px #111;
 }
 
-.buttons .btn-play {
-  color: #00f;
-  border: 2px solid #00f;
+.btn.btn-play,
+.btn.btn-stop,
+.btn.btn-continue,
+.btn.btn-reset {
   transition: 0.5s;
+}
+
+.btn.btn-play:hover,
+.btn.btn-stop:hover,
+.btn.btn-continue:hover,
+.btn.btn-reset:hover {
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px #222, 2px 2px 1px #222;
+}
+
+.btn.btn-play {
+  color: #2af;
+  border: 2px solid #2af;
   display: block;
 }
 
-.buttons .btn-play:hover {
-
-  background-color: #00f;
-  color: #fff;
-  cursor: pointer;
+.btn.btn-play:hover {
+  background-color: #2af;
 }
 
-
-.buttons .btn-stop {
-  color: #f00;
-  border: 2px solid #f00;
-  transition: 0.5s;
+.btn.btn-stop {
+  color: #e13;
+  border: 2px solid #e13;
 }
 
-.buttons .btn-stop:hover {
-
-  background-color: #f00;
-  color: #fff;
-  cursor: pointer;
+.btn.btn-stop:hover {
+  background-color: #e13;
 }
 
-.buttons .btn-continue {
-  color: #ff0;
-  border: 2px solid #ff0;
-  transition: 0.5s;
+.btn.btn-continue {
+  color: #dd0;
+  border: 2px solid #dd0;
 }
 
-.buttons .btn-continue:hover {
-
-  background-color: #ff0;
-  color: #fff;
-  cursor: pointer;
+.btn.btn-continue:hover {
+  background-color: #dd0;
 }
 
-.buttons .btn-reset {
-  color: #0f0;
-  border: 2px solid #0f0;
-  transition: 0.5s;
+.btn.btn-reset {
+  color: #0e4;
+  border: 2px solid #0e4;
 }
 
-.buttons .btn-reset:hover {
-
-  background-color: #0f0;
-  color: #fff;
-  cursor: pointer;
+.btn.btn-reset:hover {
+  background-color: #0e4;
 }

@@ -1,105 +1,187 @@
+class Button {
 
-const element = {
+  constructor(element) {
+    this.element = element
+  }
 
-  hour: document.querySelector(".hour"),
-  minute: document.querySelector(".minute"),
-  second: document.querySelector(".second"),
-  millisecond: document.querySelector(".millisecond"),
-  play: document.querySelector(".btn-play"),
-  stop: document.querySelector(".btn-stop"),
-  continue: document.querySelector(".btn-continue"),
-  reset: document.querySelector(".btn-reset")
+  display(text) {
+    this.element.style.display = text
+  }
+}
+
+const button = {
+  toplay: new Button(document.querySelector(".btn-play")),
+  tostop: new Button(document.querySelector(".btn-stop")),
+  tocontinue: new Button(document.querySelector(".btn-continue")),
+  toreset: new Button(document.querySelector(".btn-reset"))
 }
 
 class Watch {
 
-  hour = 0
-  minute = 0
-  second = 0
-  millisecond = 0
+  constructor(hour, minute, second, millisecond) {
 
-  time = 0
+    this.hour = hour
+    this.minute = minute
+    this.second = second
+    this.millisecond = millisecond
+    this.time = 0
 
-  update() {
-
-    element.hour.innerHTML = this.hour
-    element.minute.innerHTML = this.minute
-    element.second.innerHTML = this.second
-    element.millisecond.innerHTML = this.millisecond
-
-  }
-
-  play() {
-
-    //increment milliseconds
-    this.time = setInterval(() => {
-      this.millisecond++
-    }, 1)
-
-    if (this.millisecond >= 60) {
-      this.second++
-    }
-
-    if (this.second >= 60) {
-      this.minute++
-    }
-
-    if (this.minute >= 60) {
-      this.hour++
+    this.element = {
+      hour: document.querySelector(".hour"),
+      minute: document.querySelector(".minute"),
+      second: document.querySelector(".second"),
+      millisecond: document.querySelector(".millisecond")
     }
 
     this.update()
-
-    //recursivity
-    requestAnimationFrame(play)
   }
 
-  stop() { return }
+  formatWithTwoNumbers(number) {
+    if (number <= 9) return `0${number}`
+    return number
+  }
 
-  continue() { return }
+  update() {
 
-  reset() { return }
+    const {
+      hour,
+      minute,
+      second,
+      millisecond
+    } = this.element
+
+    if (this.millisecond >= 60) {
+      this.millisecond = 0
+      ++this.second
+    }
+
+    if (this.second >= 60) {
+      this.second = 0
+      ++this.minute
+    }
+
+    if (this.minute >= 60) {
+      this.minute = 0
+      ++this.hour
+    }
+
+    if (this.hour >= 99) {
+      this.hour = 0
+    }
+
+    hour.innerHTML = this.formatWithTwoNumbers(this.hour)
+    minute.innerHTML = this.formatWithTwoNumbers(this.minute)
+    second.innerHTML = this.formatWithTwoNumbers(this.second)
+    millisecond.innerHTML = this.formatWithTwoNumbers(this.millisecond)
+
+  }
+
+  addTimer() {
+    //init stopwatch
+    this.time = setInterval(() => {
+      ++this.millisecond
+      this.update()
+    }, 1000 / 60)
+  }
+
+  clearTimer() {
+    clearInterval(this.time)
+  }
+
+  toplay() {
+
+    //display
+    const {
+      toplay,
+      tostop
+    } = button
+
+    toplay.display("none")
+    tostop.display("block")
+
+    this.addTimer()
+
+  }
+
+  tostop() {
+
+    const {
+      tostop,
+      tocontinue,
+      toreset
+    } = button
+
+    tostop.display("none")
+    tocontinue.display("block")
+    toreset.display("block")
+
+    this.clearTimer()
+  }
+
+  tocontinue() {
+
+    const {
+      tocontinue,
+      toreset,
+      tostop,
+    } = button
+
+    tocontinue.display("none")
+    toreset.display("none")
+    tostop.display("block")
+
+    this.addTimer()
+
+  }
+
+  toreset() {
+
+    const {
+      toreset,
+      tocontinue,
+      toplay
+    } = button
+
+    toreset.display("none")
+    tocontinue.display("none")
+    toplay.display("block")
+
+    //reset all
+    this.millisecond = 0
+    this.second = 0
+    this.minute = 0
+    this.hour = 0
+
+    this.update()
+
+    this.clearTimer()
+
+  }
 
 }
-
 
 function start() {
 
-  const watch = new Watch()
+  const watch = new Watch(0, 0, 0, 0)
+
+  const {
+    toplay,
+    tostop,
+    tocontinue,
+    toreset
+  } = button
+
+  //define display of buttons
+  toplay.display("block")
+  tostop.display("none")
+  tocontinue.display("none")
+  toreset.display("none")
 
   //add actions
-  element.play.addEventListener("click", (e) => {
-    element.play.style.display = "none"
-    element.stop.style.display = "block"
-    //action
-    watch.play()
-  })
-
-  element.stop.addEventListener("click", (e) => {
-    element.stop.style.display = "none"
-    element.continue.style.display = "block"
-    element.reset.style.display = "block"
-    //action
-    watch.stop()
-  })
-
-  element.continue.addEventListener("click", (e) => {
-    element.continue.style.display = "none"
-    element.reset.style.display = "none"
-    element.stop.style.display = "block"
-    //action
-    watch.continue()
-  })
-
-  element.reset.addEventListener("click", (e) => {
-    element.reset.style.display = "none"
-    element.continue.style.display = "none"
-    element.play.style.display = "block"
-    //action
-    watch.reset()
-  })
+  toplay.element.addEventListener("click", () => { watch.toplay() })
+  tostop.element.addEventListener("click", () => { watch.tostop() })
+  tocontinue.element.addEventListener("click", () => { watch.tocontinue() })
+  toreset.element.addEventListener("click", () => { watch.toreset() })
 }
 
 window.addEventListener("load", start)
-
-
