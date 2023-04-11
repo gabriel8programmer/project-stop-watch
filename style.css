@@ -5,7 +5,7 @@
 body {
   background-color: #000;
   color: #fff;
-  height: 750px;
+  height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,11 +16,12 @@ body {
   padding: 20px 0;
   background: #133;
   width: 450px;
-  height: 200px;
-  border-radius: 15px;
+  height: 250px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .row {
@@ -42,7 +43,7 @@ body {
   text-transform: uppercase;
   background-color: #0001;
   border-radius: 5px;
-  margin: 0 5px;
+  margin: 0 10px;
   text-shadow: 2px 2px 1px #000;
 }
 
@@ -90,4 +91,19 @@ body {
 
 .btn.btn-reset:hover {
   background-color: #0e4;
+}
+
+@media (max-width: 300px) {
+  .stop-watch {
+    width: 100%;
+  }
+
+  .watch span {
+    font-size: 30px;
+  }
+
+  .btn {
+    font-size: 15px;
+    width: 110px;
+  }
 }
